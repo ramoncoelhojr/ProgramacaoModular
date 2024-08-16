@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 public class ComandoPegar extends Comando {
     @Override
     public void executar(Jogador jogador, String[] parametros) {
@@ -19,5 +21,6 @@ public class ComandoPegar extends Comando {
         }
 
         System.out.println("Item " + nomeItem + " não encontrado na sala.");
+        Utils.pausarELimpar();
     }
 }

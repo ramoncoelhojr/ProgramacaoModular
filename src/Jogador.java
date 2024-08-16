@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Jogador {
     private Sala salaAtual;
-    private List<Item> inventario;
+    private final List<Item> inventario;
     private int quantidadeOuro;
 
     public Jogador() {

@@ -30,27 +30,26 @@ public class Sala {
 
     public void adicionarItem(Item item) {
         itens.add(item);
-        System.out.println("Item " + item.getNome() + " adicionado à sala " + nome + ".");
     }
 
     public void removerItem(Item item) {
         itens.remove(item);
-        System.out.println("Item " + item.getNome() + " removido da sala " + nome + ".");
+        System.out.println("Você pegou o item:" + item.getNome()+".");
     }
 
     public void adicionarTroll(Troll troll) {
         trolls.add(troll);
-        System.out.println("Troll " + troll.getNome() + " adicionado à sala " + nome + ".");
+
     }
 
     public void removerTroll(Troll troll) {
         trolls.remove(troll);
-        System.out.println("Troll " + troll.getNome() + " removido da sala " + nome + ".");
+        System.out.println("Troll " + troll.getNome() + " foi morto!.");
     }
 
     public void adicionarPorta(Porta porta) {
         portas.add(porta);
-        System.out.println("Porta adicionada à sala " + nome + ".");
+
     }
 
     public List<Porta> getPortas() {

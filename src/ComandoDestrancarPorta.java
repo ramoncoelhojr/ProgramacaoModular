@@ -6,29 +6,36 @@ public class ComandoDestrancarPorta extends Comando {
             return;
         }
 
-        String nomeChave = parametros[1];
+        String nomeSalaDestino = parametros[1];
         Sala salaAtual = jogador.getSalaAtual();
 
-        Chave chave = null;
+        boolean possuiChave = false;
+
+        // Verifica se o jogador tem uma chave no inventário
         for (Item item : jogador.getInventario()) {
-            if (item instanceof Chave && item.getNome().equalsIgnoreCase(nomeChave)) {
-                chave = (Chave) item;
+            if (item instanceof Chave) {
+                possuiChave = true;
                 break;
             }
         }
 
-        if (chave == null) {
-            System.out.println("Você não tem a chave necessária.");
+        if (!possuiChave) {
+            System.out.println("Você não tem uma chave.");
             return;
         }
 
         for (Porta porta : salaAtual.getPortas()) {
-            if (porta.destrancar(chave)) {
-                System.out.println("Você destrancou a porta.");
+            Sala outraSala = porta.getOutraSala(salaAtual);
+            if (outraSala.getNome().equalsIgnoreCase(nomeSalaDestino)) {
+                if (porta.destrancar()) {
+                    System.out.println("Porta destrancada! Você pode agora mover para " + nomeSalaDestino);
+                } else {
+                    System.out.println("Não foi possível destrancar a porta para " + nomeSalaDestino);
+                }
                 return;
             }
         }
 
-        System.out.println("Nenhuma porta nesta sala pode ser destrancada com esta chave.");
+        System.out.println("Não há uma porta para " + nomeSalaDestino + " nesta sala.");
     }
 }

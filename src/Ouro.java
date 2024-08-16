@@ -7,6 +7,7 @@ public class Ouro extends Item {
     }
 
     public int getQuantidade() {
+
         return quantidade;
     }
 }

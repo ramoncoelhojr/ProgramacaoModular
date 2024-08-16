@@ -19,5 +19,6 @@ public class ComandoVisualizar extends Comando {
             Sala outraSala = porta.getOutraSala(salaAtual);
             System.out.println("- Porta para " + outraSala.getNome() + " (Aberta: " + porta.estaAberta() + ")");
         }
+    Utils.pausarELimpar(6000);
     }
 }

@@ -17,5 +17,6 @@ public class ComandoLargar extends Comando {
         }
 
         System.out.println("Item " + nomeItem + " não está no seu inventário.");
+        Utils.pausarELimpar();
     }
 }

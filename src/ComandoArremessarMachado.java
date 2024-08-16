@@ -13,11 +13,13 @@ public class ComandoArremessarMachado extends Comando {
         for (Troll troll : salaAtual.getTrolls()) {
             if (troll.getNome().equalsIgnoreCase(nomeTroll)) {
                 System.out.println("Você arremessou o machado no " + troll.getNome() + "!");
-                salaAtual.removerTroll(troll); // Supondo que o machado derrota o troll
+                salaAtual.removerTroll(troll);
+                Utils.pausarELimpar();
                 return;
             }
         }
 
         System.out.println("Troll " + nomeTroll + " não encontrado na sala.");
+        Utils.pausarELimpar();
     }
 }

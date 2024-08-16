@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,23 +24,18 @@ public class Main {
         emExecucao = true;
     }
 
+
     private void inicializarJogo() {
-        // Inicializar o jogador
         jogador = new Jogador();
 
-        // Inicializar as salas
         salas = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             salas.add(new Sala("Sala " + (i + 1)));
         }
 
-        // Conectar salas com portas
         conectarSalas();
-
-        // Distribuir itens e trolls aleatoriamente nas salas
         distribuirItensETrolls();
 
-        // Definir comandos válidos
         comandos = new HashMap<>();
         comandos.put("visualizar", new ComandoVisualizar());
         comandos.put("moverPara", new ComandoMoverPara());
@@ -48,21 +45,27 @@ public class Main {
         comandos.put("ajuda", new ComandoAjuda());
         comandos.put("ComandoDestrancarPorta", new ComandoDestrancarPorta());
 
-        // Definir a sala inicial do jogador
         jogador.definirSalaAtual(salas.getFirst());
     }
 
     private void conectarSalas() {
-        for (int i = 0; i < salas.size() - 1; i++) {
-            Porta porta = new Porta(salas.get(i), salas.get(i + 1));
-            salas.get(i).adicionarPorta(porta);
-            salas.get(i + 1).adicionarPorta(porta);
-        }
-    
-        // Definir a última sala como a saída
+
+        Chave chaveGenerica = new Chave("Chave Genérica");
+
+        Porta porta1 = new Porta(salas.get(0), salas.get(1), false); // Porta aberta
+        Porta porta2 = new Porta(salas.get(1), salas.get(2), true);  // Porta trancada
+
+        salas.get(0).adicionarPorta(porta1);
+        salas.get(1).adicionarPorta(porta1);
+        salas.get(1).adicionarPorta(porta2);
+        salas.get(2).adicionarPorta(porta2);
+
+
+        salas.get(0).adicionarItem(chaveGenerica);
+
+
         salas.getLast().definirSaida(true);
     }
-    
 
     private void distribuirItensETrolls() {
         // Lógica para distribuir itens e trolls nas salas
@@ -101,11 +104,14 @@ public class Main {
             comando.executar(jogador, partes);
         } else {
             System.out.println("Comando inválido.");
+            Utils.pausarELimpar();
+
         }
 
         // Verificar condições de fim do jogo, como saída encontrada ou jogador derrotado
         if (jogador.encontrouSaida()) {
             System.out.println("Parabéns, você encontrou a saída!");
+            Utils.pausarELimpar();
             emExecucao = false;
         }
     }

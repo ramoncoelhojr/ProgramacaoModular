@@ -3,32 +3,16 @@ public class Porta {
     private Sala sala2;
     private boolean estaAberta;
     private boolean estaTrancada;
-    private Chave chaveNecessaria;
 
-    public Porta(Sala sala1, Sala sala2) {
+    public Porta(Sala sala1, Sala sala2, boolean estaTrancada) {
         this.sala1 = sala1;
         this.sala2 = sala2;
-        this.estaAberta = true;
-        this.estaTrancada = false;
-        this.chaveNecessaria = null;
-    }
-
-    public Porta(Sala sala1, Sala sala2, Chave chaveNecessaria) {
-        this.sala1 = sala1;
-        this.sala2 = sala2;
-        this.estaAberta = false;
-        this.estaTrancada = true;
-        this.chaveNecessaria = chaveNecessaria;
+        this.estaAberta = !estaTrancada;
+        this.estaTrancada = estaTrancada;
     }
 
     public Sala getOutraSala(Sala atual) {
-        if (atual.equals(sala1)) {
-            return sala2;
-        } else if (atual.equals(sala2)) {
-            return sala1;
-        } else {
-            return null;
-        }
+        return atual.equals(sala1) ? sala2 : sala1;
     }
 
     public boolean abrir() {
@@ -36,21 +20,19 @@ public class Porta {
             System.out.println("A porta está trancada. Você precisa de uma chave para abrir.");
             return false;
         }
-        if (!estaAberta) {
-            estaAberta = true;
-            System.out.println("Você abriu a porta.");
-        }
+        estaAberta = true;
+        System.out.println("Você abriu a porta.");
         return true;
     }
-    
 
-    public boolean destrancar(Chave chave) {
-        if (chaveNecessaria != null && chave.equals(chaveNecessaria)) {
+    public boolean destrancar() {
+        if (estaTrancada) {
             estaTrancada = false;
+            estaAberta = true;
             System.out.println("Você destrancou a porta.");
             return true;
         }
-        System.out.println("A chave não serve para esta porta.");
+        System.out.println("A porta já está aberta.");
         return false;
     }
 
