@@ -36,10 +36,13 @@ public class Porta {
             System.out.println("A porta está trancada. Você precisa de uma chave para abrir.");
             return false;
         }
-        estaAberta = true;
-        System.out.println("Você abriu a porta.");
+        if (!estaAberta) {
+            estaAberta = true;
+            System.out.println("Você abriu a porta.");
+        }
         return true;
     }
+    
 
     public boolean destrancar(Chave chave) {
         if (chaveNecessaria != null && chave.equals(chaveNecessaria)) {

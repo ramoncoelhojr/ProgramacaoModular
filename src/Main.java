@@ -45,22 +45,24 @@ public class Main {
         comandos.put("pegar", new ComandoPegar());
         comandos.put("largar", new ComandoLargar());
         comandos.put("arremessarMachado", new ComandoArremessarMachado());
+        comandos.put("ajuda", new ComandoAjuda());
+        comandos.put("ComandoDestrancarPorta", new ComandoDestrancarPorta());
 
         // Definir a sala inicial do jogador
-        jogador.definirSalaAtual(salas.get(0));
+        jogador.definirSalaAtual(salas.getFirst());
     }
 
     private void conectarSalas() {
-        // Exemplo simples de conexão linear para facilitar o exemplo
         for (int i = 0; i < salas.size() - 1; i++) {
             Porta porta = new Porta(salas.get(i), salas.get(i + 1));
             salas.get(i).adicionarPorta(porta);
             salas.get(i + 1).adicionarPorta(porta);
         }
-
+    
         // Definir a última sala como a saída
-        salas.get(salas.size() - 1).definirSaida(true);
+        salas.getLast().definirSaida(true);
     }
+    
 
     private void distribuirItensETrolls() {
         // Lógica para distribuir itens e trolls nas salas
@@ -81,6 +83,7 @@ public class Main {
         System.out.println("Bem-vindo ao Adventure Game!");
 
         while (emExecucao) {
+            System.out.println("Digite ajuda para visualizar os comandos disponíveis");
             System.out.print("Jogador> ");
             String entrada = scanner.nextLine();
             processarComando(entrada);

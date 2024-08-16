@@ -9,9 +9,9 @@ public class Troll {
         return nome;
     }
 
-    // Método para simular ataque do troll
+
     public void atacar(Jogador jogador) {
         System.out.println(nome + " atacou o jogador!");
-        // Lógica de ataque ao jogador pode ser implementada aqui
+
     }
 }

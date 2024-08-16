@@ -2,27 +2,30 @@ public class ComandoMoverPara extends Comando {
     @Override
     public void executar(Jogador jogador, String[] parametros) {
         if (parametros.length < 2) {
-            System.out.println("Por favor, especifique a sala para onde deseja mover.");
+            System.out.println("Especifique o nome ou número da sala para onde deseja se mover.");
             return;
         }
-
-        String nomeSala = parametros[1];
+        String nomeSalaDestino = parametros[1];
         Sala salaAtual = jogador.getSalaAtual();
+        Porta portaEncontrada = null;
 
         for (Porta porta : salaAtual.getPortas()) {
-            Sala salaDestino = porta.getOutraSala(salaAtual);
-            if (salaDestino.getNome().equalsIgnoreCase(nomeSala)) {
-                if (porta.abrir()) {
-                    jogador.definirSalaAtual(salaDestino);
-                    System.out.println("Você se moveu para " + salaDestino.getNome());
-                    return;
-                } else {
-                    System.out.println("Você não pode passar por esta porta.");
-                    return;
-                }
+            if (porta.getOutraSala(salaAtual).getNome().equalsIgnoreCase(nomeSalaDestino) ||
+                    porta.getOutraSala(salaAtual).getNome().contains(nomeSalaDestino)) {
+                portaEncontrada = porta;
+                break;
             }
         }
 
-        System.out.println("Não há uma porta para " + nomeSala + " nesta sala.");
+        if (portaEncontrada != null) {
+            if (portaEncontrada.estaAberta()) {
+                jogador.definirSalaAtual(portaEncontrada.getOutraSala(salaAtual));
+                System.out.println("Você se moveu para a sala: " + jogador.getSalaAtual().getNome());
+            } else {
+                System.out.println("A porta para " + nomeSalaDestino + " está trancada.");
+            }
+        } else {
+            System.out.println("Não há uma porta para " + nomeSalaDestino + " nesta sala.");
+        }
     }
 }
